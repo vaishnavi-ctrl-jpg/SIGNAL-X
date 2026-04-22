@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Traffic AI v2</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- SEARCH SCREEN -->
+<div id="searchScreen">
+  <div class="ss-bg"><div class="ss-grid"></div><div class="ss-glow"></div><div class="ss-scan"></div></div>
+  <div class="ss-hdr">
+    <div class="tl3"><div class="tldot" style="background:var(--red)"></div><div class="tldot" style="background:var(--warn)"></div><div class="tldot" style="background:var(--green)"></div></div>
+    <div class="vsep"></div>
+    <div class="ss-hdr-mid">SIGNAL<em>X</em></div>
+    <div class="ss-hdr-r">
+      <div class="ss-online"><div class="ss-online-dot"></div>SYSTEM ONLINE</div>
+      <div class="vsep"></div>
+      <div class="ss-time" id="ssTime">00:00:00</div>
+    </div>
+  </div>
+  <div class="ss-body">
+    <div class="ss-eyebrow">URBAN INTELLIGENCE NETWORK · AI v2</div>
+    <div class="ss-title">SIGNAL <span class="t1">X</span><br><span class="t2">Autonomous Traffic Intelligence System</span></div>
+    <div class="ss-rule"><div class="ss-rl"></div><div class="ss-rd"></div><div class="ss-rl"></div></div>
+    <div class="ss-sub">Select or search any intersection to connect<br>to its live CCTV feed and AI signal control.</div>
+    <div class="ss-wrap">
+      <div class="ss-ico">⌕</div>
+      <input class="ss-inp" id="streetInput" type="text" placeholder="Search street, junction or landmark..." autocomplete="off" oninput="onSearch(this.value)" onkeydown="onKey(event)"/>
+      <button class="ss-btn" onclick="startFeed()">CONNECT ▶</button>
+      <div class="ss-dd" id="ssDd"></div>
+    </div>
+    <div class="ss-chips-lbl">SUGGESTED LOCATIONS</div>
+    <div class="ss-chips" id="ssChips"></div>
+    <div class="ss-note">⚠ CCTV feed is simulated — real integration requires city network API</div>
+  </div>
+  <div class="ss-strip">
+    <span><span class="ok">●</span> YOLOv8 READY</span>
+    <span><span class="ok">●</span> SIGNAL API ARMED</span>
+    <span><span class="act">◆</span> AI AGENT STANDBY</span>
+    <span><span class="ok">●</span> REDIS CONNECTED</span>
+  </div>
+</div>
+
+<!-- BOOT -->
+<div id="bootScreen" class="gone">
+  <div class="bl-loc" id="blLoc"></div>
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <div class="bl" id="bl0"><span class="bok">✓</span>&nbsp; Resolving CCTV node for location...</div>
+    <div class="bl" id="bl1"><span class="bok">✓</span>&nbsp; Authenticating city traffic network...</div>
+    <div class="bl" id="bl2"><span class="bok">✓</span>&nbsp; YOLOv8-traffic model loaded · 640×640 · conf ≥ 0.45</div>
+    <div class="bl" id="bl3"><span class="bok">✓</span>&nbsp; Calibrating lane detection zones...</div>
+    <div class="bl" id="bl4"><span class="bwn">↻</span>&nbsp; Syncing signal controller API...</div>
+    <div class="bl" id="bl5"><span class="bok">✓</span>&nbsp; AI Agent v2 online — multi-step reasoning active</div>
+  </div>
+  <div class="bl-bar"><div class="bl-fill" id="blFill"></div></div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+  <div class="hdr">
+    <div class="hdr-ham"><span></span><span></span><span></span></div>
+    <div class="hdr-mid">
+      <div class="hdr-tl">
+        <div class="hdr-dot" style="background:var(--red)"></div>
+        <div class="hdr-dot" style="background:var(--warn)"></div>
+        <div class="hdr-dot" style="background:var(--green)"></div>
+      </div>
+      <div class="vsep"></div>
+      <div class="hdr-title">SIGNAL <em>X</em> <b>Autonomous Traffic</b> Intelligence System</div>
+    </div>
+    <div class="hdr-r">
+      <div class="hdr-ico" style="position:relative">🔔<div class="badge"></div></div>
+      <div class="hdr-ico">(◎)</div>
+      <div class="hdr-ico">⚙</div>
+      <div class="vsep"></div>
+      <div class="hdr-back" onclick="goBack()">←</div>
+    </div>
+  </div>
+
+  <div class="shell">
+    <div class="sidebar">
+      <div class="sb on">🏠</div><div class="sb">☰</div><div class="sb">◎</div>
+      <div class="sb">👤</div><div class="sb">📋</div>
+      <div class="sbgap"></div><div class="sb">⚙</div>
+    </div>
+    <div class="main">
+
+      <!-- TOP ROW -->
+      <div class="top-row" style="height:52%">
+        <div class="feed-panel">
+          <div class="feed-hdr">
+            <span class="fhwifi">((·))</span>
+            <span class="fhtitle">LIVE FEED</span>
+            <span class="fhrun" id="fhRun">Running time: 0:00:00</span>
+            <div class="fhr">
+              <div class="fhlive"><div class="fhlive-dot"></div>LIVE</div>
+              <span class="fhmore">···</span>
+            </div>
+          </div>
+          <div class="cctv" id="cctvWrap">
+            <div class="cbr tl"></div><div class="cbr tr"></div>
+            <div class="cbr bl"></div><div class="cbr br"></div>
+            <canvas id="streetCanvas"></canvas>
+            <div class="det-overlay" id="detOverlay"></div>
+            <div class="hud tl">
+              <div class="hc"><span class="hck">VEH</span><span class="hca" id="hudV">—</span></div>
+              <div class="hc"><span class="hck">MODEL</span><span class="hcv">YOLOv8</span></div>
+              <div class="hc"><span class="hck">CONF</span><span class="hcg" id="hudCf">—</span></div>
+            </div>
+            <div class="hud tr">
+              <div class="hc" style="color:var(--text3)" id="hudTs">—</div>
+              <div class="hc"><span class="hck">FPS</span><span class="hcg" id="hudFps">24</span></div>
+            </div>
+            <div class="hud bl">
+              <div class="hc"><span class="hck">WAIT</span><span class="hcw" id="hudWt">—</span></div>
+              <div class="hc"><span class="hck">STATUS</span><span class="hcg">ACTIVE</span></div>
+            </div>
+            <div class="hud br">
+              <div class="hc"><span class="hck">AGENT</span><span class="hcp" id="hudAg">READY</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sig-panel">
+          <div class="sig-phdr">
+            <span class="sph-icon">⊕</span>
+            <span class="sph-title">SIGNAL CONTROL</span>
+            <span class="sph-more">···</span>
+          </div>
+          <div class="sig-grid">
+            <div class="sig-cell">
+              <div class="sc-lbl">CURRENT GREEN:</div>
+              <div class="sc-dir" id="nwDir" style="color:var(--green)">NORTH/SOUTH</div>
+              <div class="sc-row">
+                <div class="tl"><div class="tlb r0" id="nw-r"></div><div class="tlb y0" id="nw-y"></div><div class="tlb g1" id="nw-g"></div></div>
+                <div class="sc-info"><div class="sc-phase" id="nwPh" style="color:var(--green)">N/S GREEN</div><div class="sc-num" id="nwT">35</div><div class="sc-unit">s remaining</div></div>
+              </div>
+            </div>
+            <div class="sig-cell">
+              <div class="sc-lbl">CURRENT GREEN:</div>
+              <div class="sc-dir" id="neDir" style="color:var(--green)">NORTH/SOUTH</div>
+              <div class="sc-row">
+                <div class="tl"><div class="tlb r0" id="ne-r"></div><div class="tlb y0" id="ne-y"></div><div class="tlb g1" id="ne-g"></div></div>
+                <div class="sc-info"><div class="sc-phase" id="nePh" style="color:var(--green)">N/S GREEN</div><div class="sc-num" id="neT">35</div><div class="sc-unit">— 35s remaining</div></div>
+              </div>
+            </div>
+            <div class="sig-cell">
+              <div class="sc-lbl">CURRENT GREEN:</div>
+              <div class="sc-dir" id="swDir" style="color:var(--warn)">SOUTH WSB</div>
+              <div class="sc-row">
+                <div class="tl"><div class="tlb r1" id="sw-r"></div><div class="tlb y0" id="sw-y"></div><div class="tlb g0" id="sw-g"></div></div>
+                <div class="sc-info"><div class="sc-phase" id="swPh" style="color:var(--red)">E/W RED</div><div class="sc-num" id="swT">0</div><div class="sc-unit">1s remaining</div></div>
+              </div>
+            </div>
+            <div class="sig-cell">
+              <div class="sc-lbl">CURRENT GREEN:</div>
+              <div class="sc-dir" id="seDir" style="color:var(--warn)">EAST JSB:</div>
+              <div class="sc-row">
+                <div class="tl"><div class="tlb r1" id="se-r"></div><div class="tlb y0" id="se-y"></div><div class="tlb g0" id="se-g"></div></div>
+                <div class="sc-info"><div class="sc-phase" id="sePh" style="color:var(--red)">E/W RED</div><div class="sc-num" id="seT">0</div><div class="sc-unit">— 15s remaining</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /top-row -->
+
+      <!-- BOTTOM ROW -->
+      <div class="bot-row">
+        <!-- LANE DENSITY + FORECAST -->
+        <div class="lane-panel">
+          <div class="ph"><span class="ph-ic" style="color:var(--accent)">▲▲</span><span class="ph-tt">LANE DENSITY</span><span class="ph-mo">···</span></div>
+          <div class="density-legend">
+            <div class="dl-lg"><div class="dl-lg-dot" style="background:var(--red)"></div>High Density</div>
+            <div class="dl-lg"><div class="dl-lg-dot" style="background:var(--warn)"></div>Medium</div>
+            <div class="dl-lg"><div class="dl-lg-dot" style="background:var(--green)"></div>Low</div>
+          </div>
+          <div class="density-rows" id="densityRows"></div>
+          <div class="fc-section">
+            <div class="fc-lbl">CONGESTION FORECAST (NEXT 10 MIN)</div>
+            <div class="fc-bars" id="fcBars"></div>
+            <div class="fc-times"><span>+1m</span><span>+2m</span><span>+3m</span><span>+4m</span><span>+5m</span><span>+6m</span><span>+7m</span><span>+8m</span><span>+9m</span><span>+10m</span></div>
+          </div>
+        </div>
+
+        <!-- ANALYTICS -->
+        <div class="analytics-panel">
+          <div class="ph"><span class="ph-ic" style="color:var(--accent)">∿</span><span class="ph-tt">TRAFFIC ANALYTICS GRAPH</span><span class="ph-mo">···</span></div>
+          <div class="analytics-body">
+            <canvas id="analyticsChart"></canvas>
+          </div>
+        </div>
+
+        <!-- METRICS + AGENT LOG -->
+        <div class="metrics-panel">
+          <div class="ph"><span class="ph-ic" style="color:var(--accent)">≡</span><span class="ph-tt">SYSTEM METRICS</span><span class="ph-mo">···</span></div>
+          <div class="sys-grid">
+            <div class="sm"><div class="sm-lbl">TOTAL VEHICLES:</div><div class="sm-val a" id="smV">145</div></div>
+            <div class="sm"><div class="sm-lbl">AVG. WAIT TIME:</div><div class="sm-val w" id="smW">2m 10s</div></div>
+            <div class="sm"><div class="sm-lbl">SYSTEM STATUS:</div><div class="sm-val g">ACTIVE</div></div>
+            <div class="sm"><div class="sm-lbl">MODEL:</div><div class="sm-val s">YOLOv8-traffic</div></div>
+          </div>
+          <div class="agent-section">
+            <div class="agent-ph">
+              <span style="color:var(--purple);font-size:11px">◈</span>
+              <span class="ph-tt" style="color:var(--purple)">AI AGENT v2 LOG</span>
+            </div>
+            <div class="agent-status-row">
+              <div class="asr-dot"></div>
+              <span style="color:var(--green)">AGENT ACTIVE</span>
+              <span style="color:var(--text3)">· hybrid-rule+AI mode</span>
+            </div>
+            <div class="log-scroll" id="agentLog"></div>
+          </div>
+        </div>
+      </div><!-- /bot-row -->
+
+    </div><!-- /main -->
+  </div><!-- /shell -->
+
+  <div class="statusbar">
+    <span><span class="ok">●</span> YOLOv8 ONLINE</span>
+    <span><span class="ok">●</span> SIGNAL API CONNECTED</span>
+    <span><span class="act">◆</span> AGENT REASONING</span>
+    <span><span class="ok">●</span> REDIS SYNC: <span class="act" id="sbLat">12ms</span></span>
+    <div class="sb-r"><span class="act" id="sbFps">FPS: 23</span><span id="sbClock">17:16:17</span></div>
+  </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/traffic.js"></script>
+<script src="js/canvas.js"></script>
+<script src="js/agent.js"></script>
+<script src="js/ui.js"></script>
+</body>
+</html>

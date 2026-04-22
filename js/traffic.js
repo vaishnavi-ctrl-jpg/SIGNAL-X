@@ -4,31 +4,32 @@
 // ═══════════════════════════════════════════════
 function applyScenario(sc){
   currentScenario = {...sc};
-  S.lane = {n:sc.n, s:sc.s, e:sc.e, w:sc.w};
-  // AI decides: who has more load?
-  const nsLoad = sc.n + sc.s;
-  const ewLoad = sc.e + sc.w;
-  const totalLoad = nsLoad + ewLoad;
-  // Green time proportional to load, min 10s, max 55s
-  const nsGreen = Math.round(Math.max(10, Math.min(55, (nsLoad/totalLoad)*80)));
-  const ewGreen = Math.round(Math.max(10, Math.min(55, (ewLoad/totalLoad)*80)));
-  // Which direction currently has green? Keep current, set appropriate timer
-  if(S.ns.ph==='green'){
-    S.ns.t = nsGreen;
-  } else if(S.ew.ph==='green'){
-    S.ew.t = ewGreen;
-  }
-  // Store for next cycle
-  S._nsGreen = nsGreen;
-  S._ewGreen = ewGreen;
-  scenarioChangeTimer = 35 + Math.floor(Math.random()*15); // 35-50 seconds before next
+  
+  // 6. Peak Hour Simulation Mode (logic only)
+  // Time-based traffic patterns influence base counts
+  const hour = new Date().getHours();
+  let peakMod = 1.0;
+  if (hour >= 8 && hour <= 10) peakMod = 1.3; // Morning Rush
+  if (hour >= 17 && hour <= 19) peakMod = 1.4; // Evening Rush
+
+  // 7. Noise Handling / Randomness
+  const noise = () => 1 + (Math.random() * 0.2 - 0.1); // +/- 10%
+  
+  S.lane = {
+    n: sc.n * peakMod * noise(), 
+    s: sc.s * peakMod * noise(), 
+    e: sc.e * peakMod * noise(), 
+    w: sc.w * peakMod * noise()
+  };
+
+  scenarioChangeTimer = 35 + Math.floor(Math.random()*15); 
+  
   // Rebuild vehicles for new scenario
   spawnVehicles();
   updateDensityDisplay();
   updateChartData();
   updateHudVeh();
-  addLog('decide',`Scenario: "${sc.name}" · NS-load:${nsLoad} EW-load:${ewLoad}`);
-  addLog('action',`AI signal: NS green=${nsGreen}s, EW green=${ewGreen}s — proportional to congestion`);
+  addLog('pred',`Context Shift: "${sc.name}" pattern detected. Adaptive recalibration initiated.`);
 }
 function nextScenario(){
   scenarioIdx = (scenarioIdx+1) % SCENARIOS.length;
