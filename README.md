@@ -1,28 +1,23 @@
 <div align="center">
   <h1>🚦 SIGNAL.X</h1>
-  <h3>Autonomous Multi-Agent Traffic Optimization System with Real-Time Lane Prioritization</h3>
+  <h3>Autonomous Multi-Agent Traffic Optimization System</h3>
   
   <p>
-    <img src="https://img.shields.io/badge/Status-Active-success.svg" alt="Status" />
+    <img src="https://img.shields.io/badge/Status-Hackathon_Ready-success.svg" alt="Status" />
     <img src="https://img.shields.io/badge/Agent_Model-YOLOv8-blue.svg" alt="YOLOv8" />
-    <img src="https://img.shields.io/badge/Deployment-Smart_City_Ready-orange.svg" alt="Smart City" />
+    <img src="https://img.shields.io/badge/Deployment-Smart_City_API-orange.svg" alt="Smart City" />
     <img src="https://img.shields.io/badge/Interface-Glassmorphism-purple.svg" alt="UI" />
   </p>
 </div>
 
-## 🚨 The Problem
-Current traffic systems are static and inefficient. They rely on fixed timers regardless of real-time congestion, leading to wasted time, increased emissions, and poor urban mobility.
+## 📌 The Pitch
+Current urban traffic systems are static, relying on fixed timers that waste time and increase emissions. **SIGNAL.X** transforms city infrastructure into a dynamic, intelligent network using an **autonomous multi-agent system** that optimizes traffic flow in real-time via live lane density, predictive modeling, and adaptive signal control.
 
-## 💡 The Solution
-We built an **autonomous agent-based system** that dynamically optimizes traffic flow using real-time lane density, predictive modeling, and adaptive signal control. 
-
-> **Live Deployment Ready:** The system is purposefully designed to plug into real-time city CCTV feeds via API for immediate live deployment.
-
-## ✨ Key Differentiators / Features
-- ✅ **Multi-agent behavior** (intelligent, dynamic signal decision logic)
-- ✅ **Visual simulation** (high-fidelity interactive canvas — huge visualization advantage)
-- ✅ **Real-world use case** (smart city network integration = perfect fit for municipal application)
-- ✅ **Explainability** (real-time transparent AI agent logs = judges LOVE this!)
+## 🏆 Why This Wins (Hackathon Edge)
+- ✅ **Multi-Agent Behavior:** This isn't just a dashboard; it uses intelligent, dynamic decision logic to adjust signal durations.
+- ✅ **Visual Simulation:** High-fidelity interactive canvas that perfectly demonstrates the real-world impact to judges.
+- ✅ **Real-world Application:** Designed for direct Smart City municipal integration.
+- ✅ **Explainability:** Transparent AI agent logs showing *why* decisions are made (Judges love transparent AI!).
 
 ## 🧠 System Architecture
 
@@ -50,10 +45,20 @@ sequenceDiagram
     Sig-->>Agent: Confirm State Shift
 ```
 
-## 🛠️ Technical Highlights
-- **Computer Vision Integration:** Built to seamlessly ingest YOLOv8 detection streams for high-confidence vehicle tracking.
-- **Predictive Analytics:** Implements forecast models preempting congestion build-ups before they occur.
-- **Command Center UI:** A state-of-the-art dispatch and monitoring dashboard providing 360-degree intersection awareness.
+## 💻 Tech Stack
+- **Frontend / Simulation:** Vanilla HTML5 Canvas, CSS Variables (Glassmorphism), JavaScript
+- **Computer Vision Model:** YOLOv8 Object Detection (simulated ingestion)
+- **Analytics:** Chart.js for real-time visualization
+
+## 🚀 How to Run Locally
+1. Clone the repository: `git clone https://github.com/vaishnavi-ctrl-jpg/SIGNAL-X.git`
+2. Open `INDEX.html` in any modern web browser.
+3. No build steps or heavy dependencies required!
+
+## 🔮 Future Scope
+- Direct API integration with municipal IoT hardware.
+- Real-world cloud deployment via AWS/GCP for multi-intersection meshing.
+- Ambulance / Emergency vehicle override priority channels.
 
 <div align="center">
   <br/>
