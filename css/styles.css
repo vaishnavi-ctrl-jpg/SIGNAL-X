@@ -172,7 +172,7 @@ html,body{height:100%;width:100%;overflow:hidden;background:var(--bg);color:var(
 .density-legend{display:flex;gap:14px;padding:7px 13px 8px;flex-shrink:0;border-bottom:1px solid var(--border)}
 .dl-lg{display:flex;align-items:center;gap:4px;font-size:9px;font-family:var(--mono);color:var(--text3)}
 .dl-lg-dot{width:6px;height:6px;border-radius:50%}
-.density-rows{flex:1;padding:10px 13px;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.density-rows{flex:1;padding:5px 13px;display:flex;flex-direction:column;gap:5px;overflow:hidden}
 .dn-row{display:flex;flex-direction:column;gap:4px}
 .dn-name{font-size:9px;font-family:var(--mono);color:var(--text2);letter-spacing:1px}
 .dn-bar{height:8px;background:rgba(18,26,38,.9);border-radius:4px;overflow:hidden}
