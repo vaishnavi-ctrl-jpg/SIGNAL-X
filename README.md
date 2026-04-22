@@ -62,8 +62,10 @@ Want to test the autonomous simulation locally? It takes less than 10 seconds.
    cd SIGNAL-X
    ```
 3. **Launch Application:** 
-   Simply double-click the `INDEX.html` file to open it directly in any modern web browser (Edge, Chrome, Safari).
+   Simply double-click the `index.html` file to open it directly in any modern web browser.
    
+*(Note: The codebase has been fully modularized into cleanly separated HTML, CSS, and JS engine components for robust maintainability!)*
+
 **No Dependencies:** Zero build-steps, no `npm install`, and no complex configurations required for evaluation.
 
 ## 🔮 Roadmap / Future Implementation
