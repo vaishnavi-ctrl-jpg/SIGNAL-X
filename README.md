@@ -24,6 +24,32 @@ We built an **autonomous agent-based system** that dynamically optimizes traffic
 - ✅ **Real-world use case** (smart city network integration = perfect fit for municipal application)
 - ✅ **Explainability** (real-time transparent AI agent logs = judges LOVE this!)
 
+## 🧠 System Architecture
+
+```mermaid
+graph TD
+    A[CCTV Network] -->|Video Feed| B(YOLOv8 Vision Node)
+    B -->|Vehicles per Lane| C{AI Agent Engine}
+    C <-->|Query/Update| D[(Redis Sync)]
+    C -->|Signal Duration| E[Hardware Controller]
+    E --> F[Traffic Lights]
+```
+
+## ⚙️ Autonomous Agent Flow
+
+```mermaid
+sequenceDiagram
+    participant Cam as CCTV
+    participant Vision as YOLOv8
+    participant Agent as AI Agent
+    participant Sig as Signal API
+    Cam->>Vision: Stream Frames
+    Vision->>Agent: Detect Lane Congestion
+    Agent->>Agent: Predict Flow (10m Forecast)
+    Agent->>Sig: Adjust Green Duration proportionally
+    Sig-->>Agent: Confirm State Shift
+```
+
 ## 🛠️ Technical Highlights
 - **Computer Vision Integration:** Built to seamlessly ingest YOLOv8 detection streams for high-confidence vehicle tracking.
 - **Predictive Analytics:** Implements forecast models preempting congestion build-ups before they occur.
