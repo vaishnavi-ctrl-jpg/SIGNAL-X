@@ -10,57 +10,56 @@
   </p>
 </div>
 
-## 📌 The Pitch
-Current urban traffic systems are static, relying on fixed timers that waste time and increase emissions. **SIGNAL.X** transforms city infrastructure into a dynamic, intelligent network using an **autonomous multi-agent system** that optimizes traffic flow in real-time via live lane density, predictive modeling, and adaptive signal control.
+## 📌 Executive Summary
+Current urban traffic systems are static, relying on fixed, pre-programmed timers that cause unnecessary congestion and increased carbon emissions. **SIGNAL.X** transforms city infrastructure into a dynamic, intelligent network using an **autonomous multi-agent system** that optimizes traffic flow in real-time via live lane density analysis and adaptive signal control.
 
-## 🏆 Why This Wins (Hackathon Edge)
-- ✅ **Multi-Agent Behavior:** This isn't just a dashboard; it uses intelligent, dynamic decision logic to adjust signal durations.
-- ✅ **Visual Simulation:** High-fidelity interactive canvas that perfectly demonstrates the real-world impact to judges.
-- ✅ **Real-world Application:** Designed for direct Smart City municipal integration.
-- ✅ **Explainability:** Transparent AI agent logs showing *why* decisions are made (Judges love transparent AI!).
+## 🏆 Innovation & Impact
+- **Multi-Agent Decision Engine:** Beyond a simple dashboard, SIGNAL.X utilizes autonomous agents that dynamically adjust signal durations based on live intersection payload data.
+- **High-Fidelity Visual Simulation:** A built-in interactive physics canvas that perfectly simulates vehicle flow and bumper-to-bumper queue detection without needing a physical intersection.
+- **Real-World Scalability:** Designed to directly ingest YOLOv8 object detection streams from existing municipal CCTV infrastructure via API—a highly feasible, low-cost Smart City upgrade.
+- **Explainable AI Pipeline:** Features transparent AI agent behavior logging, ensuring that every signal state change is fully auditable and structurally sound.
 
 ## 🧠 System Architecture
 
 ```mermaid
 graph TD
-    A[CCTV Network] -->|Video Feed| B(YOLOv8 Vision Node)
-    B -->|Vehicles per Lane| C{AI Agent Engine}
-    C <-->|Query/Update| D[(Redis Sync)]
-    C -->|Signal Duration| E[Hardware Controller]
-    E --> F[Traffic Lights]
+    A[CCTV Network] -->|Video Stream Feed| B(YOLOv8 Vision Node)
+    B -->|Active Vehicle Density| C{AI Agent Engine}
+    C <-->|Shared State DB| D[(Redis Hash)]
+    C -->|Calculated Signal Duration| E[Hardware Controller]
+    E --> F[Intersection Lights]
 ```
 
-## ⚙️ Autonomous Agent Flow
+## ⚙️ Autonomous Agent Workflow
 
 ```mermaid
 sequenceDiagram
-    participant Cam as CCTV
-    participant Vision as YOLOv8
-    participant Agent as AI Agent
-    participant Sig as Signal API
-    Cam->>Vision: Stream Frames
-    Vision->>Agent: Detect Lane Congestion
-    Agent->>Agent: Predict Flow (10m Forecast)
-    Agent->>Sig: Adjust Green Duration proportionally
-    Sig-->>Agent: Confirm State Shift
+    participant Cam as CCTV Camera
+    participant Vision as YOLOv8 Node
+    participant Agent as AI Traffic Agent
+    participant Sig as Hardware Signal API
+    Cam->>Vision: Stream 24FPS Feed
+    Vision->>Agent: Relay Lane Congestion Metrics
+    Agent->>Agent: Execute 10-Min Flow Forecast Model
+    Agent->>Sig: Autonomously Dispatch Adaptive Green Timing
+    Sig-->>Agent: Confirm State Shift / Log to Terminal
 ```
 
-## 💻 Tech Stack
-- **Frontend / Simulation:** Vanilla HTML5 Canvas, CSS Variables (Glassmorphism), JavaScript
-- **Computer Vision Model:** YOLOv8 Object Detection (simulated ingestion)
-- **Analytics:** Chart.js for real-time visualization
+## 💻 Technology Stack
+- **Simulation Layer:** Native HTML5 Canvas Engine, Advanced CSS Variables (Glassmorphic Spec)
+- **Vision Integration Layer:** YOLOv8 Object Detection compatibility
+- **Data Visualization:** Chart.js Integration for real-time congestion tracking
 
-## 🚀 How to Run Locally
-1. Clone the repository: `git clone https://github.com/vaishnavi-ctrl-jpg/SIGNAL-X.git`
-2. Open `INDEX.html` in any modern web browser.
-3. No build steps or heavy dependencies required!
+## 🚀 Execution Guide
+1. **Clone Repository:** `git clone https://github.com/vaishnavi-ctrl-jpg/SIGNAL-X.git`
+2. **Launch Application:** Open `INDEX.html` directly in any modern web browser.
+3. **No Dependencies:** Zero build-steps or complex configurations required for evaluation.
 
-## 🔮 Future Scope
-- Direct API integration with municipal IoT hardware.
-- Real-world cloud deployment via AWS/GCP for multi-intersection meshing.
-- Ambulance / Emergency vehicle override priority channels.
+## 🔮 Roadmap / Future Implementation
+- **Emergency Override:** V2 includes direct routing channels for localized dispatching of emergency vehicles.
+- **Cloud Meshing:** AWS/GCP architecture mapping to synchronize multiple adjacent intersections dynamically.
 
 <div align="center">
   <br/>
-  <i>Engineered for the next generation of urban mobility.</i>
+  <i>Developed for the next generation of urban mobility.</i>
 </div>
