@@ -61,12 +61,17 @@ Want to test the autonomous simulation locally? It takes less than 10 seconds.
    ```bash
    cd SIGNAL-X
    ```
-3. **Launch Application:** 
+3. **Launch Application (Local):** 
    Simply double-click the `index.html` file to open it directly in any modern web browser.
-   
-*(Note: The codebase has been fully modularized into cleanly separated HTML, CSS, and JS engine components for robust maintainability!)*
+   *(For developers: We recommend using VS Code's "Live Server" extension to visualize hot-reloaded changes easily).*
 
-**No Dependencies:** Zero build-steps, no `npm install`, and no complex configurations required for evaluation.
+### 🌍 Live Deployment (GitHub Pages)
+Since this project uses zero dependencies, it can be hosted instantly online:
+1. Navigate to your repository **Settings** on GitHub.
+2. Select **Pages** from the sidebar.
+3. Choose the `main` branch and click Save. Your live dashboard is ready!
+
+**Zero Dependencies:** No build-steps, no `npm install`, and no complex configurations required for evaluation. The codebase is cleanly modularized into native HTML, CSS, and JS engine components for robust maintainability.
 
 ## 🔮 Roadmap / Future Implementation
 - **Emergency Override:** V2 includes direct routing channels for localized dispatching of emergency vehicles.
