@@ -50,10 +50,21 @@ sequenceDiagram
 - **Vision Integration Layer:** YOLOv8 Object Detection compatibility
 - **Data Visualization:** Chart.js Integration for real-time congestion tracking
 
-## 🚀 Execution Guide
-1. **Clone Repository:** `git clone https://github.com/vaishnavi-ctrl-jpg/SIGNAL-X.git`
-2. **Launch Application:** Open `INDEX.html` directly in any modern web browser.
-3. **No Dependencies:** Zero build-steps or complex configurations required for evaluation.
+## 🚀 Installation & Cloning Guide
+Want to test the autonomous simulation locally? It takes less than 10 seconds.
+
+1. **Clone the Repository:** 
+   ```bash
+   git clone https://github.com/vaishnavi-ctrl-jpg/SIGNAL-X.git
+   ```
+2. **Navigate to the Directory:**
+   ```bash
+   cd SIGNAL-X
+   ```
+3. **Launch Application:** 
+   Simply double-click the `INDEX.html` file to open it directly in any modern web browser (Edge, Chrome, Safari).
+   
+**No Dependencies:** Zero build-steps, no `npm install`, and no complex configurations required for evaluation.
 
 ## 🔮 Roadmap / Future Implementation
 - **Emergency Override:** V2 includes direct routing channels for localized dispatching of emergency vehicles.
