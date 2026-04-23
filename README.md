@@ -66,11 +66,18 @@ Want to test the autonomous simulation locally? It takes less than 10 seconds.
    Simply double-click the `index.html` file to open it directly in any modern web browser.
    *(For developers: I recommend using VS Code's "Live Server" extension to visualize hot-reloaded changes easily).*
 
-### 🌍 Live Deployment (GitHub Pages)
-Since this project uses zero dependencies, it can be hosted instantly online:
+### 🌍 Live Deployment (GitHub Pages / Netlify)
+Since this project has zero dependencies and use a native tech-stack, it can be hosted instantly:
+
+#### Option A: GitHub Pages (Recommended)
 1. Navigate to your repository **Settings** on GitHub.
 2. Select **Pages** from the sidebar.
-3. Choose the `main` branch and click Save. Your live dashboard is ready!
+3. Choose the `main` branch and click **Save**. Your live dashboard is ready!
+
+#### Option B: Netlify (Fastest)
+1. Log in to [Netlify](https://www.netlify.com/).
+2. Drag and drop the `SIGNAL.X` folder directly into the "Sites" dashboard.
+3. Your project will be live with a custom URL in seconds.
 
 **Zero Dependencies:** No build-steps, no `npm install`, and no complex configurations required for evaluation. The codebase is cleanly modularized into native HTML, CSS, and JS engine components for robust maintainability.
 

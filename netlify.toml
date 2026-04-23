@@ -1,0 +1,13 @@
+[build]
+  publish = "."
+
+[dev]
+  port = 8888
+  publish = "."
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    Content-Security-Policy = "frame-ancestors 'none'"
