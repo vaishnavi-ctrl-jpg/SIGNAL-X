@@ -14,7 +14,7 @@
 Current urban traffic systems are static, relying on fixed, pre-programmed timers that cause unnecessary congestion and increased carbon emissions. **SIGNAL.X** transforms city infrastructure into a dynamic, intelligent network using an **autonomous multi-agent system** that optimizes traffic flow in real-time via live lane density analysis and adaptive signal control.
 
 ## 🏆 Innovation & Impact
-- **Weighted Priority Engine:** Overcoming rigid "density-only" flaws, our algorithm natively calculates phase shifts using a dynamic matrix: `(0.5 × density) + (0.3 × wait time) + (0.2 × queue length)`.
+- **Weighted Priority Engine:** Overcoming rigid "density-only" flaws, my algorithm natively calculates phase shifts using a dynamic matrix: `(0.5 × density) + (0.3 × wait time) + (0.2 × queue length)`.
 - **Preemptive Anti-Starvation:** Built-in logic bounds prevent endless waiting loops. If a lane passes the strict 45-second starvation threshold, it seamlessly bypasses standard algorithm metrics for a forced-priority maximal green phase.
 - **True Visual Phase Skipping:** The system observes actual optical queue clearing. If the active green lane clears its congestion while the perpendicular lane is queued, it executes immediate phase termination to boost throughput by 25%.
 - **Robust Explainable AI (XAI):** Features transparent AI agent behavior logging (displaying Score, Queue, and Wait triggers directly in UI), ensuring every signal state change is fully auditable and trustworthy.
