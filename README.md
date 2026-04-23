@@ -8,6 +8,9 @@
     <img src="https://img.shields.io/badge/Deployment-Smart_City_API-orange.svg" alt="Smart City" />
     <img src="https://img.shields.io/badge/Interface-Glassmorphism-purple.svg" alt="UI" />
   </p>
+  <p>
+    <a href="https://signal-x-autonomous-system.netlify.app/"><strong>🚀 Live Demo: signal-x-autonomous-system.netlify.app</strong></a>
+  </p>
 </div>
 
 ## 📌 Executive Summary
