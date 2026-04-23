@@ -64,7 +64,7 @@ Want to test the autonomous simulation locally? It takes less than 10 seconds.
    ```
 3. **Launch Application (Local):** 
    Simply double-click the `index.html` file to open it directly in any modern web browser.
-   *(For developers: We recommend using VS Code's "Live Server" extension to visualize hot-reloaded changes easily).*
+   *(For developers: I recommend using VS Code's "Live Server" extension to visualize hot-reloaded changes easily).*
 
 ### 🌍 Live Deployment (GitHub Pages)
 Since this project uses zero dependencies, it can be hosted instantly online:
