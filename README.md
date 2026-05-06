@@ -27,22 +27,16 @@ Current urban traffic systems are static, relying on fixed, pre-programmed timer
 ```mermaid
 graph TD
     %% Input Layer
-    subgraph Data Acquisition
-        CCTV[📹 City CCTV Feeds] -->|24 FPS Stream| YOLO[👁️ YOLOv8 Edge Node]
-    end
+    CCTV[📹 City CCTV Feeds] -->|24 FPS Stream| YOLO[👁️ YOLOv8 Edge Node]
 
     %% AI Processing Layer
-    subgraph Intelligence Engine
-        YOLO -->|Bounding Box Data| DensityMetrics[📊 Density & Queue Analytics]
-        DensityMetrics -->|Extracted Signals| Agent{🤖 AI Traffic Agent}
-        Agent <-->|Context Sync| Redis[(⚡ In-Memory State)]
-    end
+    YOLO -->|Bounding Box Data| DensityMetrics[📊 Density & Queue Analytics]
+    DensityMetrics -->|Extracted Signals| Agent{🤖 AI Traffic Agent}
+    Agent <-->|Context Sync| Redis[(⚡ In-Memory State)]
 
     %% Hardware Actuation
-    subgraph Physical Infrastructure
-        Agent -->|Phase Override Commands| IoT[🎛️ IoT Signal Controller]
-        IoT -->|Adaptive Green/Red| Signal[🚥 Smart Traffic Signal]
-    end
+    Agent -->|Phase Override Commands| IoT[🎛️ IoT Signal Controller]
+    IoT -->|Adaptive Green/Red| Signal[🚥 Smart Traffic Signal]
 ```
 
 ## ⚙️ Autonomous Agent Logic Flow
